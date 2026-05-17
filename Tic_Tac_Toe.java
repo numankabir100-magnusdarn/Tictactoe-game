@@ -60,10 +60,10 @@ public class Tic_Tac_Toe {
     }
     
     static int minimax(char [][] board, boolean isAI){
-        if(checkWin(board, 'O')){
+        if(checkWin(board, aiSymbol)){
             return +10;
         }
-        if(checkWin(board, 'X')){
+        if(checkWin(board, humanSymbol)){
             return -10;
         }
         if(isDraw(board)){
@@ -80,10 +80,10 @@ public class Tic_Tac_Toe {
             for(int j=0; j<3; j++){
                 if(board[i][j] == '_'){
                     if(isAI){
-                        board[i][j] = 'O';
+                        board[i][j] = aiSymbol;
                     }
                     else{
-                        board[i][j] = 'X';
+                        board[i][j] = humanSymbol;
                     }
                     int score = minimax(board, ! isAI);
 
@@ -113,7 +113,7 @@ public class Tic_Tac_Toe {
         for(int i=0; i<3; i++){
             for(int j=0; j<3; j++){
                 if(board[i][j] == '_'){
-                    board[i][j] = 'O';
+                    board[i][j] = aiSymbol;
                     int score = minimax(board, false);
                     board[i][j] = '_';
 
@@ -129,8 +129,10 @@ public class Tic_Tac_Toe {
         return bestMove;
     }
 
+    static char humanSymbol , aiSymbol;
+
     static char[] doToss(){
-        char humanSymbol , aiSymbol , humanFirst ; 
+        char humanFirst;
         System.out.println("\nTossing.......");
         if(Math.random() < 0.5){
             humanFirst = 'Y';
@@ -189,8 +191,8 @@ public class Tic_Tac_Toe {
         }
 // Tossing.
         char [] tossResult = doToss();
-        char humanSymbol = tossResult[0];
-        char aiSymbol = tossResult[1];
+        humanSymbol = tossResult[0];
+        aiSymbol = tossResult[1];
         boolean humanFirst = (tossResult[2] == 'Y');
 // Printing the board
         printBoard(board);
